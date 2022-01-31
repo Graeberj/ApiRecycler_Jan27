@@ -11,9 +11,13 @@ object RetroFitInstance {
     fun providesRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .addConverterFactory(MoshiConverterFactory
-            .create(Moshi.Builder()
-            .build()))
+            .addConverterFactory(
+                MoshiConverterFactory
+                    .create(
+                        Moshi.Builder()
+                            .build()
+                    )
+            )
             .build()
     }
 

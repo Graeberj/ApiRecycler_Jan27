@@ -1,4 +1,4 @@
-package com.example.apirecycler_jan27.model.adapter
+package com.example.apirecycler_jan27.view.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -8,7 +8,8 @@ import com.example.apirecycler_jan27.databinding.ItemTodoBinding
 import com.example.apirecycler_jan27.model.network.models.Todo
 
 class TodoAdapter(
-    private val todoList: List<Todo>
+    private val todoList: MutableList<Todo> = mutableListOf<Todo>()
+
 ) : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
@@ -24,16 +25,20 @@ class TodoAdapter(
     override fun getItemCount(): Int {
         return todoList.size
     }
+    fun submitList(todos: List<Todo>) {
+        todoList.clear()
+        todoList.addAll(todos)
+    }
     class TodoViewHolder(private val binding: ItemTodoBinding):
         RecyclerView.ViewHolder(binding.root){
 
             @SuppressLint("SetTextI18n")
             fun bind(todo: Todo) {
                 with(binding){
-                    titleTv.text = "Title: ${todo.title}"
-                    todoIdTv.text = "Todo ID: ${todo.id}"
-                    userIdTv.text = "User ID ${todo.userId}"
-                    todoCompletedTv.text = "Completed: ${todo.completed}"
+                    userIdTv.text = todo.userId.toString()
+                    todoIdTv.text = todo.id.toString()
+                    titleTv.text = todo.title
+                    todoCompletedTv.text = todo.completed.toString()
 
                 }
             }

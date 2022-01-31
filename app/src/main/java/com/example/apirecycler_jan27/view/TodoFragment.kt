@@ -9,8 +9,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.apirecycler_jan27.databinding.FragmentTodoBinding
-import com.example.apirecycler_jan27.model.adapter.TodoAdapter
+import com.example.apirecycler_jan27.view.adapter.TodoAdapter
 import com.example.apirecycler_jan27.model.network.ApiManager
+import com.example.apirecycler_jan27.model.network.models.Todo
 import com.example.apirecycler_jan27.model.repository.TodoRepository
 import com.example.apirecycler_jan27.viewmodel.TodoViewModel
 
@@ -21,6 +22,9 @@ class TodoFragment: Fragment() {
 
     private val viewModel: TodoViewModel by activityViewModels {
         TodoViewModel.Factory(TodoRepository(ApiManager()))
+    }
+    private val todoAdapter by lazy {
+        TodoAdapter()
     }
 
     override fun onCreateView(
@@ -37,7 +41,7 @@ class TodoFragment: Fragment() {
         with(binding){
             viewModel.todos.observe(viewLifecycleOwner){todos ->
                 todoRv.apply {
-                    adapter = todos?.let { TodoAdapter(it) }
+                    adapter = todoAdapter
                     layoutManager = LinearLayoutManager(requireContext())
                 }
             }

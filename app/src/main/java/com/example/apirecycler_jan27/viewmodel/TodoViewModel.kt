@@ -16,6 +16,7 @@ class TodoViewModel(
     init {
         getTodos()
     }
+
     private fun getTodos() {
         viewModelScope.launch {
             val response = todoRepository.getTodos()
