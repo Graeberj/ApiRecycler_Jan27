@@ -25,10 +25,7 @@ class TodoAdapter(
     override fun getItemCount(): Int {
         return todoList.size
     }
-    fun submitList(todos: List<Todo>) {
-        todoList.clear()
-        todoList.addAll(todos)
-    }
+
     class TodoViewHolder(private val binding: ItemTodoBinding):
         RecyclerView.ViewHolder(binding.root){
 

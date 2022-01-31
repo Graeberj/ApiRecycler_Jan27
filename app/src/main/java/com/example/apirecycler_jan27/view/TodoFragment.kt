@@ -23,9 +23,6 @@ class TodoFragment: Fragment() {
     private val viewModel: TodoViewModel by activityViewModels {
         TodoViewModel.Factory(TodoRepository(ApiManager()))
     }
-    private val todoAdapter by lazy {
-        TodoAdapter()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,7 +38,7 @@ class TodoFragment: Fragment() {
         with(binding){
             viewModel.todos.observe(viewLifecycleOwner){todos ->
                 todoRv.apply {
-                    adapter = todoAdapter
+                    adapter = TodoAdapter(todos as MutableList<Todo>)
                     layoutManager = LinearLayoutManager(requireContext())
                 }
             }
